@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Profile and Interactive Menu</title>
+    <link rel="stylesheet" href="C:\abinash\pythontasks\css\style.css">
+</head>
+<body>
+    <video class="video-background" autoplay muted loop>
+        <source src="C:\abinash\pythontasks\mysterious-cat-girl.3840x2160.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <div class="profile-header">
+            <img id="profile-pic" src="" alt="Profile Picture">
+            <div>
+                <h1 id="profile-name"></h1>
+                <p id="profile-tagline"></p>
+            </div>
+        </div>
+
+        <div class="profile-details">
+            <div class="section skills">
+                <h2>Skills</h2>
+                <ul id="skills-list"></ul>
+            </div>
+
+            <div class="section projects">
+                <h2>Projects</h2>
+                <ul id="projects-list"></ul>
+            </div>
+
+            <div class="section contact">
+                <h2>Contact</h2>
+                <p>Feel free to reach out to me:</p>
+                <p><a id="contact-email" href="#">Email me</a></p>
+                <p><a id="linkedin-profile" href="#" target="_blank">LinkedIn Profile</a></p>
+                <p><a id="github-profile" href="#" target="_blank">GitHub Profile</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="intro">
+        <h2>Welcome to My Portfolio</h2>
+        <p>
+            Hi, I'm Abinash Acharya, a passionate developer with experience in various technologies. I specialize in creating interactive web applications and enjoy working on innovative projects.
+        </p>
+        <div class="portfolio">
+            <a href="https://example.com" target="_blank">Project 1: Interactive Web App</a>
+            <a href="https://example.com" target="_blank">Project 2: Mobile Application</a>
+            <a href="https://example.com" target="_blank">Project 3: E-Commerce Site</a>
+            <a href="mailto:your.email@example.com">Contact Me</a>
+        </div>
+    </div>
+
+    <h1>Welcome to the Interactive Menu</h1>
+    <div class="button-container">
+        <button class="action-button" onclick="toggleSmsForm()">Send Text SMS</button>
+        <button class="action-button" onclick="toggleMailForm()">Send a Mail</button> <!-- New button -->
+        <button class="action-button" onclick="scrapGoogleSearch()">Scrap Google Search</button>
+        <button class="action-button" onclick="getCurrentLocation()">Get Current Location</button>
+        <button class="action-button" onclick="textToSpeech()">Text To Speech</button>
+        <button class="action-button" onclick="sendSMSviaPhone()">Send SMS via</button>
+        <button class="action-button" onclick="sendBulkMail()">Send Bulk Mail</button>
+        <button class="action-button" onclick="openVolumeControlPopup()">Open Volume Control</button>
+    </div>
+
+    <!-- SMS Popup Form -->
+    <div id="sms-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="toggleSmsForm()">×</button>
+            <h2>Send SMS</h2>
+            <form id="sms-form-content">
+                <label for="account-sid">Account SID:</label>
+                <input type="text" id="account-sid" name="account-sid" required>
+
+                <label for="auth-token">Auth Token:</label>
+                <input type="text" id="auth-token" name="auth-token" required>
+
+                <label for="phone-number">Sender Phone Number:</label>
+                <input type="tel" id="phone-number" name="phone-number" required>
+
+                <label for="from-phone-number">Twilio Phone Number:</label>
+                <input type="text" id="from-phone-number" name="from-phone-number" required><br>
+
+                <label for="sms-message">Message:</label>
+                <textarea id="sms-message" name="sms-message" rows="4" required></textarea>
+
+                <button type="button" class="action-button" onclick="sendTextSMS()">Send SMS</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Volume Control Popup -->
+    <div id="volume-control-popup" class="popup-container" style="display:none;">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('volume-control-popup')">×</button>
+            <h2>Volume Control</h2>
+            <p>No current version of Python library supports this fully. Some faulty ones are:</p>
+            <ul>
+                <li>pywin32</li>
+                <li>pycaw</li>
+                <li>sounddevice</li>
+                <li>ctypes</li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    <!-- Mail Popup Form -->
+    <div id="mail-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="toggleMailForm()">×</button>
+            <h2>Send Mail</h2>
+            <form id="mail-form-content">
+                <label for="sender-email">Sender Email:</label>
+                <input type="email" id="sender-email" name="sender-email" required>
+
+                <label for="sender-password">Sender App specific 16 letter Password:</label>
+                <input type="password" id="sender-password" name="sender-password" required>
+
+                <label for="recipient-email">Recipient Email:</label>
+                <input type="email" id="recipient-email" name="recipient-email" required>
+
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+
+                <label for="mail-message">Message:</label>
+                <textarea id="mail-message" name="mail-message" rows="4" required></textarea>
+
+                <button type="button" class="action-button" onclick="sendEmail()">Send Mail</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scrap Google Search Popup -->
+    <div id="google-search-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('google-search-popup')">×</button>
+            <h2>Scrap Google Search</h2>
+            <form id="google-search-form" onsubmit="googleQuery(event)">
+                <label for="query">Query:</label>
+                <input type="text" id="google-query" name="query" required>
+
+                <label for="num_results">Number of Results:</label>
+                <input type="number" id="num-results" name="num_results" value="5" min="1">
+
+                <button type="submit" class="action-button">Search</button>
+            </form>
+
+            <!-- Loading Indicator -->
+            <div id="loading-indicator" style="display: none; margin-top: 10px;">Loading...</div>
+
+            <!-- Google Search Results Output -->
+            <div id="google-results" style="margin-top: 20px;">
+                <h3>Search Results:</h3>
+                <!-- Results will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Get Current Location Popup -->
+    <div id="location-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('location-popup')">×</button>
+            <h2>Get Current Location</h2>
+            <button id="get-location-btn" class="action-button" onclick="getCurrentLocation()">Get current location</button>
+            <div id="location-result"></div>
+        </div>
+    </div>
+
+    <!-- Text-to-Speech Popup -->
+    <div id="text-to-speech-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('text-to-speech-popup')">×</button>
+            <h2>Text to Speech</h2>
+            <form id="text-to-speech-form" onsubmit="handleTextToSpeech(event)">
+                <label for="text-to-speech-input">Enter Text:</label>
+                <textarea id="text-to-speech-input" name="text" required></textarea>
+                <button type="submit" class="action-button">Convert to Speech</button>
+            </form>
+            <div id="loading-indicator" style="display: none;">Loading...</div>
+            <div id="audio-container"></div>
+        </div>
+    </div>
+
+    <!-- Send SMS via Phone Popup -->
+    <div id="send-sms-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('send-sms-popup')">×</button>
+            <h2>Send SMS via Phone</h2>
+            <form id="send-sms-form">
+                <label for="api_secret">API Secret of SMS CHEF:</label>
+                <input type="text" id="api_secret" name="api_secret" required>
+
+                <label for="device_id">Device ID FROM SMS CHEF:</label>
+                <input type="text" id="device_id" name="device_id" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit" class="action-button">Send</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Send Bulk Mail Popup -->
+    <div id="bulk-mail-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('bulk-mail-popup')">×</button>
+            <h2>Send Bulk Mail</h2>
+            <form id="bulk-mail-form">
+                <label for="bulk-mail-sender-email">Sender Email:</label>
+                <input type="email" id="bulk-mail-sender-email" name="bulk-mail-sender-email" required>
+
+                <label for="bulk-mail-sender-password">Sender 16-digit App Password:</label>
+                <input type="password" id="bulk-mail-sender-password" name="bulk-mail-sender-password" required>
+
+                <label for="bulk-mail-recipient-emails">Recipient Emails (comma separated):</label>
+                <textarea id="bulk-mail-recipient-emails" name="bulk-mail-recipient-emails" required></textarea>
+
+                <label for="bulk-mail-subject">Subject:</label>
+                <input type="text" id="bulk-mail-subject" name="bulk-mail-subject" required>
+
+                <label for="bulk-mail-message">Message:</label>
+                <textarea id="bulk-mail-message" name="bulk-mail-message" required></textarea>
+
+                <button type="submit" class="action-button">Send Bulk Mail</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="C:\abinash\pythontasks\scripts\scripts_main.js"></script>
+    <script>
+            
+    // Function to initialize the volume control slider
+    function initVolumeControl() {
+        const volumeSlider = document.getElementById('volume-slider');
+        const audioElement = document.getElementById('audio-element'); // Replace with your audio element ID
+
+        // Set initial volume (0 to 1)
+        audioElement.volume = 0.5; // Set default volume to 50%
+        volumeSlider.value = audioElement.volume * 100; // Convert to percentage for slider
+
+        // Event listener to change volume based on slider input
+        volumeSlider.addEventListener('input', function() {
+            const volume = volumeSlider.value / 100;
+            audioElement.volume = volume;
+        });
+    }
+
+    // Function to open the volume control popup
+    function openVolumeControlPopup() {
+        const popup = document.getElementById('volume-control-popup');
+        popup.style.display = 'block';
+
+        // Initialize volume control when popup opens
+        initVolumeControl();
+    }
+
+    // Function to close the volume control popup
+    function closeVolumeControlPopup() {
+        const popup = document.getElementById('volume-control-popup');
+        popup.style.display = 'none';
+    }
+
+    // Add event listeners to close buttons
+    document.addEventListener('DOMContentLoaded', () => {
+        const closeButtons = document.querySelectorAll('.popup-close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const popup = this.closest('.popup-container');
+                popup.style.display = 'none';
+            });
+        });
+    });
+
+    </script>
+
+</body>
+</html>
