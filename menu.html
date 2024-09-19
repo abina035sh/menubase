@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Profile and Interactive Menu</title>
-    <link rel="stylesheet" href="css\style.css">
+    <link rel="stylesheet" href="C:\abinash\pythontasks\css\style.css">
 </head>
 <body>
     <video class="video-background" autoplay muted loop>
-        <source src="mysterious-cat-girl.3840x2160.mp4" type="video/mp4">
+        <source src="C:\abinash\pythontasks\mysterious-cat-girl.3840x2160.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
@@ -54,19 +54,28 @@
             <a href="mailto:your.email@example.com">Contact Me</a>
         </div>
     </div>
-
-    <h1>Welcome to the Interactive Menu</h1>
-    <div class="button-container">
-        <button class="action-button" onclick="toggleSmsForm()">Send Text SMS</button>
-        <button class="action-button" onclick="toggleMailForm()">Send a Mail</button> <!-- New button -->
-        <button class="action-button" onclick="scrapGoogleSearch()">Scrap Google Search</button>
-        <button class="action-button" onclick="getCurrentLocation()">Get Current Location</button>
-        <button class="action-button" onclick="textToSpeech()">Text To Speech</button>
-        <button class="action-button" onclick="sendSMSviaPhone()">Send SMS via</button>
-        <button class="action-button" onclick="sendBulkMail()">Send Bulk Mail</button>
-        <button class="action-button" onclick="openVolumeControlPopup()">Open Volume Control</button>
+    <div class="search-container">
+        <input type="text" id="menu-search" placeholder="Search for an action..." onkeyup="filterMenu()">
     </div>
+    <h1>Welcome to the Interactive Menu</h1>
 
+    <div class="button-container" id="button-container">
+        <button class="action-button" data-keywords="sms text message" onclick="toggleSmsForm()">Send Text SMS</button>
+        <button class="action-button" data-keywords="mail email" onclick="toggleMailForm()">Send a Mail</button>
+        <button class="action-button" data-keywords="scrap google search" onclick="scrapGoogleSearch()">Scrap Google Search</button>
+        <button class="action-button" data-keywords="location current gps" onclick="getCurrentLocation()">Get Current Location</button>
+        <button class="action-button" data-keywords="text speech" onclick="textToSpeech()">Text To Speech</button>
+        <button class="action-button" data-keywords="sms phone" onclick="sendSMSviaPhone()">Send SMS via</button>
+        <button class="action-button" data-keywords="bulk mail email" onclick="sendBulkMail()">Send Bulk Mail</button>
+        <button class="action-button" data-keywords="volume control" onclick="openVolumeControlPopup()">Open Volume Control</button>
+        <button class="action-button" data-keywords="upload crop image" onclick="openUploadCropPopup()">Upload Image & Crop Face</button>
+        <button class="action-button" data-keywords="apply filter image" onclick="openApplyFilterPopup()">Apply Filter to Image</button>
+        <button class="action-button" data-keywords="create custom image" onclick="openCreateCustomImagePopup()">Create Custom Image</button>
+        <button class="action-button" data-keywords="apply cool filters" onclick="openApplyCoolFiltersPopup()">Apply Cool Filters to Image</button>
+        <button class="action-button" data-keywords="predict model" onclick="openPredictPopup()">Make Prediction</button>
+    
+
+    </div>
     <!-- SMS Popup Form -->
     <div id="sms-popup" class="popup-container">
         <div class="popup-content">
@@ -235,8 +244,68 @@
             </form>
         </div>
     </div>
+    <!-- Popup for Upload Image and Crop Face -->
+    <div id="upload-crop-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('upload-crop-popup')">×</button>
+            <h2>Upload Image & Crop Face</h2>
+            <form id="upload-crop-form">
+                <label for="uploadImage">Image:</label>
+                <input type="file" id="imageInput" accept="image/*" required>
+                <button type="button" class="action-button" onclick="handleImageUpload()">Upload & Crop</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popup for Apply Filter -->
+    <div id="apply-filter-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('apply-filter-popup')">×</button>
+            <h2>Apply Filter to Image</h2>
+            <form id="apply-filter-form">
+                <label for="filterImage">Image:</label>
+                <input type="file" id="filterImageInput" accept="image/*" required>
+                <button type="button" class="action-button" onclick="handleApplyFilter()">Apply Filter</button>
+            </form>
+        </div>
+    </div>
     
-    <script src="scripts\scripts_main.js"></script>
+    <!-- Popup for Create Custom Image -->
+    <div id="create-custom-image-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('create-custom-image-popup')">×</button>
+            <h2>Create Custom Image</h2>
+            <button type="button" class="action-button" onclick="handleCreateCustomImage()">Create Custom Image</button>
+        </div>
+    </div>
+
+    <!-- Popup for Apply Cool Filters -->
+    <div id="apply-cool-filters-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('apply-cool-filters-popup')">×</button>
+            <h2>Apply Cool Filters to Image</h2>
+            <form id="apply-cool-filters-form">
+                <label for="coolFilterImage">Image:</label>
+                <input type="file" id="coolFilterImageInput" accept="image/*" required>
+                <button type="button" class="action-button" onclick="handleApplyCoolFilters()">Apply Cool Filters</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Popup for Predict -->
+    <div id="predict-popup" class="popup-container">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup('predict-popup')">×</button>
+            <h2>Make Prediction</h2>
+            <form id="predict-form">
+                <label for="predictInputData">Input Data (comma-separated):</label>
+                <textarea id="predictInputData" rows="4" placeholder="e.g. 1.2,3.4,5.6" required></textarea>
+                <button type="button" class="action-button" onclick="handlePrediction()">Predict</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="C:\abinash\pythontasks\scripts\scripts_main.js"></script>
     <script>
             
     // Function to initialize the volume control slider
@@ -280,7 +349,23 @@
             });
         });
     });
+    function filterMenu() {
+        const query = document.getElementById('menu-search').value.toLowerCase();
+        const buttons = document.querySelectorAll('.button-container .action-button');
 
+        buttons.forEach(button => {
+            const keywords = button.getAttribute('data-keywords').toLowerCase();
+           if (query === 'python') {
+                button.style.display = 'block'; // Show all buttons
+            } 
+            // Otherwise, filter based on the search query
+            else if (keywords.includes(query)) {
+                button.style.display = 'block'; // Show button if it matches the search query
+            } else {
+                button.style.display = 'none'; // Hide button if it doesn't match
+            }
+        });
+    }
     </script>
 
 </body>
