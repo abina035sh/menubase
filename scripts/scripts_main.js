@@ -11,8 +11,8 @@ const profileData = {
     ],
     contact: {
         email: "pupunsteave880@gmail.com",
-        linkedin: "https://www.linkedin.com/in/abinash-acharya-4b6b662a1?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
-        github: "https://github.com/abina035sh"
+        linkedin: "https://linkedin.com/in/yourprofile",
+        github: "https://github.com/yourusername"
     }
 };
 
@@ -95,6 +95,27 @@ function sendBulkMail() {
 const popup = document.getElementById('bulk-mail-popup');
 popup.style.display = 'flex';
 }
+
+function openUploadCropPopup() {
+    document.getElementById('upload-crop-popup').style.display = 'block';
+}
+
+function openApplyFilterPopup() {
+    document.getElementById('apply-filter-popup').style.display = 'block';
+}
+
+function openCreateCustomImagePopup() {
+    document.getElementById('create-custom-image-popup').style.display = 'block';
+}
+
+function openApplyCoolFiltersPopup() {
+    document.getElementById('apply-cool-filters-popup').style.display = 'block';
+}
+
+function openPredictPopup() {
+    document.getElementById('predict-popup').style.display = 'block';
+}
+
 // Function to send SMS via Twilio API
 function sendTextSMS() {
     const accountSid = document.getElementById('account-sid').value;
@@ -311,6 +332,8 @@ function handleTextToSpeech(event) {
         alert('Please enter text to convert to speech.');
     }
 }
+
+
 // Handle the Send SMS form submission
 // Handle the Send Bulk Mail form submission
 document.getElementById('bulk-mail-form').onsubmit = function(e) {
@@ -365,6 +388,14 @@ document.getElementById('bulk-mail-form').onsubmit = function(e) {
     });
 };
 
+
+// Function to close any popup
+function closePopup(popupId) {
+    const popup = document.getElementById(popupId);
+    popup.style.display = 'none';
+}
+
+
 function openVolumeControlPopup() {
     document.getElementById('popup').style.display = 'block';
 }
@@ -372,3 +403,115 @@ function openVolumeControlPopup() {
 function closePopup() {
     document.getElementById('popup').style.display = 'none';
 }
+
+
+// Function to handle image upload and crop face
+function handleImageUpload() {
+    const file = document.getElementById('imageInput').files[0];  // Assuming an input element with id="imageInput"
+    
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('http://localhost:5000/upload_image', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Image uploaded and face cropped:', data);
+            alert('Image uploaded and face cropped successfully');
+        })
+        .catch(error => {
+            console.error('Error uploading image:', error);
+            alert('Error uploading image');
+        });
+    }
+}
+
+// Function to handle applying filter to an image
+function handleApplyFilter() {
+    const file = document.getElementById('filterImageInput').files[0];  // Assuming an input element with id="filterImageInput"
+    
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('http://localhost:5000/apply_filter', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Filter applied:', data);
+            alert('Filter applied successfully');
+        })
+        .catch(error => {
+            console.error('Error applying filter:', error);
+            alert('Error applying filter');
+        });
+    }
+}
+
+// Function to handle creating a custom image
+function handleCreateCustomImage() {
+    fetch('http://localhost:5000/create_custom_image', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Custom image created:', data);
+        alert('Custom image created successfully');
+    })
+    .catch(error => {
+        console.error('Error creating custom image:', error);
+        alert('Error creating custom image');
+    });
+}
+
+// Function to handle applying cool filters to an image
+function handleApplyCoolFilters() {
+    const file = document.getElementById('coolFilterImageInput').files[0];  // Assuming an input element with id="coolFilterImageInput"
+    
+    if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        fetch('http://localhost:5000/apply_cool_filters', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Cool filters applied:', data);
+            alert('Cool filters applied successfully');
+        })
+        .catch(error => {
+            console.error('Error applying cool filters:', error);
+            alert('Error applying cool filters');
+        });
+    }
+}
+
+// Function to handle prediction
+function handlePrediction() {
+    const inputData = document.getElementById('predictInputData').value.split(',').map(Number);  // Assuming a textarea with id="inputData"
+    
+    fetch('http://localhost:5000/predict', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ data: inputData })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Prediction:', data);
+        alert(`Prediction result: ${data.prediction}`);
+    })
+    .catch(error => {
+        console.error('Error making prediction:', error);
+        alert('Error making prediction');
+    });
+}
+
