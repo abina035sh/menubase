@@ -97,8 +97,8 @@ def send_mail():
 
 @app.route('/google_query', methods=['POST'])
 def google_query():
-    GOOGLE_API_KEY = 'YOUR API KEY'  # Replace with a secure method to load the API key
-    CSE_ID = 'YOUR SEARCH ENGINE ID'  # Replace with a secure method to load the CSE ID
+    GOOGLE_API_KEY = 'AIzaSyABBzxqalP_3VY50A5wFCIEuRKQkl2INmc'  # Replace with a secure method to load the API key
+    CSE_ID = '935ebc460a9754226'  # Replace with a secure method to load the CSE ID
 
     data = request.json
     query = data.get('query')
